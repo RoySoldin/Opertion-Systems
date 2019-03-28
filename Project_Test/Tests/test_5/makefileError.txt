@@ -1,0 +1,31 @@
+$ Calling priority system call with correct args
+Calling priority system call with correct args
+Calling priority system call with correct args
+Calling priority system call with correct args
+Calling priority system call with correct args
+Calling priority system call with correct args
+Calling priority system call with wrong args
+Calling priority system call with wrong args
+Calling priority system call with wrong args
+$ Calling priority system call with correct args
+Calling policy system call
+Calling priority system call with correct args
+Calling policy system call
+Calling priority system call with correct args
+Calling policy system call
+Calling priority system call with correct args
+Calling policy system call
+Calling priority system call with correct args
+Calling policy system call
+Calling priority system call with correct args
+Calling policy system call
+Calling policy system call
+Calling priority system call with correct args
+Calling priority system call with wrong args
+Calling policy system call
+Calling priority system call with wrong args
+Calling policy system call
+Calling priority system call with wrong args
+unexpected trap 14 from cpu 1 eip 80100e4e (cr2=0xf8ba0004)
+lapicid 1: panic: trap
+ 801072b2 80106f22 8010419e 80106f22 0 0 0 0 0 0

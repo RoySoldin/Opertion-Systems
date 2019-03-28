@@ -65,7 +65,7 @@ runcmd(struct cmd *cmd)
   struct redircmd *rcmd;
 
   if(cmd == 0)
-    exit();
+    exit(0);
 
   switch(cmd->type){
   default:
@@ -74,8 +74,49 @@ runcmd(struct cmd *cmd)
   case EXEC:
     ecmd = (struct execcmd*)cmd;
     if(ecmd->argv[0] == 0)
-      exit();
+      exit(0);
+    /**************************************************************************/
+    /*                            Path Support                                */
+    /**************************************************************************/
+
+    //  Case 1: The executable is in working directory
     exec(ecmd->argv[0], ecmd->argv);
+
+    //  Case 2: The executable is in a directory appear in the file /path 
+    int fd = open("/path", O_RDONLY);
+    if(fd > 0)
+    {
+      int CHUNK = 1024,PATH_SIZE = 1024;
+      char buf[CHUNK];
+      read(fd, &buf,CHUNK); 
+      char path[PATH_SIZE];
+      for (int i = 0, c = 0; i < CHUNK; ++i , ++c)
+      {
+        if(buf[i] != ':')
+          path[c] = buf[i];
+        else {
+          for (int j = 0; j < strlen(ecmd->argv[0]); ++j, ++c)
+            path[c] = ecmd->argv[0][j];
+
+          printf(2,"%s\n",path); //  for Debug
+
+          exec(path, ecmd->argv);
+
+          // if exec fails 
+          for(int j=0 ; j<=c ; ++j)
+            path[j] = '\0';
+          c=-1;
+        }
+      }
+    }
+      
+    //  Case 3: The executable is not found
+    //    continue?
+    /**************************************************************************/
+
+
+
+    // exec(ecmd->argv[0], ecmd->argv);
     printf(2, "exec %s failed\n", ecmd->argv[0]);
     break;
 
@@ -84,16 +125,17 @@ runcmd(struct cmd *cmd)
     close(rcmd->fd);
     if(open(rcmd->file, rcmd->mode) < 0){
       printf(2, "open %s failed\n", rcmd->file);
-      exit();
+      exit(0);
     }
     runcmd(rcmd->cmd);
     break;
 
+  int tmp = 0;
   case LIST:
     lcmd = (struct listcmd*)cmd;
     if(fork1() == 0)
       runcmd(lcmd->left);
-    wait();
+    wait(&tmp);
     runcmd(lcmd->right);
     break;
 
@@ -117,8 +159,8 @@ runcmd(struct cmd *cmd)
     }
     close(p[0]);
     close(p[1]);
-    wait();
-    wait();
+    wait(&tmp);
+    wait(&tmp);
     break;
 
   case BACK:
@@ -127,7 +169,7 @@ runcmd(struct cmd *cmd)
       runcmd(bcmd->cmd);
     break;
   }
-  exit();
+  exit(0);
 }
 
 int
@@ -166,16 +208,17 @@ main(void)
     }
     if(fork1() == 0)
       runcmd(parsecmd(buf));
-    wait();
+    int tmp = 0;
+    wait(&tmp);
   }
-  exit();
+  exit(0);
 }
 
 void
 panic(char *s)
 {
   printf(2, "%s\n", s);
-  exit();
+  exit(0);
 }
 
 int

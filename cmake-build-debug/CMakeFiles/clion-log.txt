@@ -1,0 +1,32 @@
+/home/soldin/Clion/clion-2018.3.4/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/home/soldin/os192/Assignment1/Makefile -G "CodeBlocks - Unix Makefiles" /home/soldin/os192/Assignment1
+-- The C compiler identification is GNU 7.3.0
+-- The CXX compiler identification is GNU 7.3.0
+-- Check for working C compiler: /usr/bin/cc
+CMake Error: Generator: execution of make failed. Make command was: "/home/soldin/os192/Assignment1/Makefile" "cmTC_83866/fast"
+-- Check for working C compiler: /usr/bin/cc -- broken
+CMake Error at /home/soldin/Clion/clion-2018.3.4/bin/cmake/linux/share/cmake-3.13/Modules/CMakeTestCCompiler.cmake:52 (message):
+  The C compiler
+
+    "/usr/bin/cc"
+
+  is not able to compile a simple test program.
+
+  It fails with the following output:
+
+    Change Dir: /home/soldin/os192/Assignment1/cmake-build-debug/CMakeFiles/CMakeTmp
+    
+    Run Build Command:"/home/soldin/os192/Assignment1/Makefile" "cmTC_83866/fast"
+    Permission denied
+    Generator: execution of make failed. Make command was: "/home/soldin/os192/Assignment1/Makefile" "cmTC_83866/fast"
+    
+
+  
+
+  CMake will not be able to correctly generate this project.
+Call Stack (most recent call first):
+  CMakeLists.txt:2 (project)
+
+
+-- Configuring incomplete, errors occurred!
+See also "/home/soldin/os192/Assignment1/cmake-build-debug/CMakeFiles/CMakeOutput.log".
+See also "/home/soldin/os192/Assignment1/cmake-build-debug/CMakeFiles/CMakeError.log".

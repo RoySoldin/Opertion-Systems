@@ -1,0 +1,410 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="Assignment1"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/home/soldin/os192/Assignment1/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/soldin/os192/Assignment1/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/soldin/os192/Assignment1/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/soldin/os192/Assignment1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/soldin/os192/Assignment1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/home/soldin/os192/Assignment1/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/soldin/os192/Assignment1/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/soldin/os192/Assignment1/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/soldin/os192/Assignment1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/soldin/os192/Assignment1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="Assignment1">
+				<Option output="/home/soldin/os192/Assignment1/cmake-build-debug/Assignment1" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/soldin/os192/Assignment1/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/soldin/os192/Assignment1/."/>
+					<Add directory="/home/soldin/os192/Assignment1/Project_Test/include"/>
+					<Add directory="/usr/include/c++/7"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/7"/>
+					<Add directory="/usr/include/c++/7/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/soldin/os192/Assignment1/cmake-build-debug/Makefile&quot;  VERBOSE=1 Assignment1"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/soldin/os192/Assignment1/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/soldin/os192/Assignment1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/soldin/os192/Assignment1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="Assignment1/fast">
+				<Option output="/home/soldin/os192/Assignment1/cmake-build-debug/Assignment1" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/soldin/os192/Assignment1/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/soldin/os192/Assignment1/."/>
+					<Add directory="/home/soldin/os192/Assignment1/Project_Test/include"/>
+					<Add directory="/usr/include/c++/7"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/7"/>
+					<Add directory="/usr/include/c++/7/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/soldin/os192/Assignment1/cmake-build-debug/Makefile&quot;  VERBOSE=1 Assignment1/fast"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/soldin/os192/Assignment1/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/soldin/os192/Assignment1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/soldin/os192/Assignment1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/home/soldin/os192/Assignment1/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/soldin/os192/Assignment1/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/soldin/os192/Assignment1/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/soldin/os192/Assignment1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/soldin/os192/Assignment1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/home/soldin/os192/Assignment1/Project_Test/XV6_Tests/detachTest.c">
+			<Option target="Assignment1"/>
+		</Unit>
+		<Unit filename="/home/soldin/os192/Assignment1/Project_Test/XV6_Tests/exitWait.c">
+			<Option target="Assignment1"/>
+		</Unit>
+		<Unit filename="/home/soldin/os192/Assignment1/Project_Test/XV6_Tests/helloW.c">
+			<Option target="Assignment1"/>
+		</Unit>
+		<Unit filename="/home/soldin/os192/Assignment1/Project_Test/XV6_Tests/pathTest.c">
+			<Option target="Assignment1"/>
+		</Unit>
+		<Unit filename="/home/soldin/os192/Assignment1/Project_Test/XV6_Tests/pathTest1.c">
+			<Option target="Assignment1"/>
+		</Unit>
+		<Unit filename="/home/soldin/os192/Assignment1/Project_Test/XV6_Tests/pathTest2.1.c">
+			<Option target="Assignment1"/>
+		</Unit>
+		<Unit filename="/home/soldin/os192/Assignment1/Project_Test/XV6_Tests/pathTest2.2.c">
+			<Option target="Assignment1"/>
+		</Unit>
+		<Unit filename="/home/soldin/os192/Assignment1/Project_Test/XV6_Tests/pathTest3.c">
+			<Option target="Assignment1"/>
+		</Unit>
+		<Unit filename="/home/soldin/os192/Assignment1/Project_Test/XV6_Tests/pathTest4.c">
+			<Option target="Assignment1"/>
+		</Unit>
+		<Unit filename="/home/soldin/os192/Assignment1/Project_Test/XV6_Tests/pathTest5.c">
+			<Option target="Assignment1"/>
+		</Unit>
+		<Unit filename="/home/soldin/os192/Assignment1/Project_Test/XV6_Tests/policySysTest.c">
+			<Option target="Assignment1"/>
+		</Unit>
+		<Unit filename="/home/soldin/os192/Assignment1/Project_Test/XV6_Tests/prioritySysTest.c">
+			<Option target="Assignment1"/>
+		</Unit>
+		<Unit filename="/home/soldin/os192/Assignment1/Project_Test/XV6_Tests/quitXV6.c">
+			<Option target="Assignment1"/>
+		</Unit>
+		<Unit filename="/home/soldin/os192/Assignment1/Project_Test/XV6_Tests/schedulingTest1.c">
+			<Option target="Assignment1"/>
+		</Unit>
+		<Unit filename="/home/soldin/os192/Assignment1/Project_Test/XV6_Tests/schedulingTest10.c">
+			<Option target="Assignment1"/>
+		</Unit>
+		<Unit filename="/home/soldin/os192/Assignment1/Project_Test/XV6_Tests/schedulingTest11.c">
+			<Option target="Assignment1"/>
+		</Unit>
+		<Unit filename="/home/soldin/os192/Assignment1/Project_Test/XV6_Tests/schedulingTest12.c">
+			<Option target="Assignment1"/>
+		</Unit>
+		<Unit filename="/home/soldin/os192/Assignment1/Project_Test/XV6_Tests/schedulingTest13.c">
+			<Option target="Assignment1"/>
+		</Unit>
+		<Unit filename="/home/soldin/os192/Assignment1/Project_Test/XV6_Tests/schedulingTest2.c">
+			<Option target="Assignment1"/>
+		</Unit>
+		<Unit filename="/home/soldin/os192/Assignment1/Project_Test/XV6_Tests/schedulingTest3.c">
+			<Option target="Assignment1"/>
+		</Unit>
+		<Unit filename="/home/soldin/os192/Assignment1/Project_Test/XV6_Tests/schedulingTest4.c">
+			<Option target="Assignment1"/>
+		</Unit>
+		<Unit filename="/home/soldin/os192/Assignment1/Project_Test/XV6_Tests/schedulingTest5.c">
+			<Option target="Assignment1"/>
+		</Unit>
+		<Unit filename="/home/soldin/os192/Assignment1/Project_Test/XV6_Tests/schedulingTest6.c">
+			<Option target="Assignment1"/>
+		</Unit>
+		<Unit filename="/home/soldin/os192/Assignment1/Project_Test/XV6_Tests/schedulingTest7.c">
+			<Option target="Assignment1"/>
+		</Unit>
+		<Unit filename="/home/soldin/os192/Assignment1/Project_Test/XV6_Tests/schedulingTest8.c">
+			<Option target="Assignment1"/>
+		</Unit>
+		<Unit filename="/home/soldin/os192/Assignment1/Project_Test/XV6_Tests/schedulingTest9.c">
+			<Option target="Assignment1"/>
+		</Unit>
+		<Unit filename="/home/soldin/os192/Assignment1/Project_Test/XV6_Tests/usertests.c">
+			<Option target="Assignment1"/>
+		</Unit>
+		<Unit filename="/home/soldin/os192/Assignment1/Project_Test/include/ProjectTest.h">
+			<Option target="Assignment1"/>
+		</Unit>
+		<Unit filename="/home/soldin/os192/Assignment1/Project_Test/include/Tests.h">
+			<Option target="Assignment1"/>
+		</Unit>
+		<Unit filename="/home/soldin/os192/Assignment1/Project_Test/src/ProjectTest.cpp">
+			<Option target="Assignment1"/>
+		</Unit>
+		<Unit filename="/home/soldin/os192/Assignment1/Project_Test/src/Tests.cpp">
+			<Option target="Assignment1"/>
+		</Unit>
+		<Unit filename="/home/soldin/os192/Assignment1/Project_Test/src/temp.cpp">
+			<Option target="Assignment1"/>
+		</Unit>
+		<Unit filename="/home/soldin/os192/Assignment1/asm.h">
+			<Option target="Assignment1"/>
+		</Unit>
+		<Unit filename="/home/soldin/os192/Assignment1/ass1ds.cpp">
+			<Option target="Assignment1"/>
+		</Unit>
+		<Unit filename="/home/soldin/os192/Assignment1/ass1ds.hpp">
+			<Option target="Assignment1"/>
+		</Unit>
+		<Unit filename="/home/soldin/os192/Assignment1/bio.c">
+			<Option target="Assignment1"/>
+		</Unit>
+		<Unit filename="/home/soldin/os192/Assignment1/bootmain.c">
+			<Option target="Assignment1"/>
+		</Unit>
+		<Unit filename="/home/soldin/os192/Assignment1/buf.h">
+			<Option target="Assignment1"/>
+		</Unit>
+		<Unit filename="/home/soldin/os192/Assignment1/cat.c">
+			<Option target="Assignment1"/>
+		</Unit>
+		<Unit filename="/home/soldin/os192/Assignment1/console.c">
+			<Option target="Assignment1"/>
+		</Unit>
+		<Unit filename="/home/soldin/os192/Assignment1/date.h">
+			<Option target="Assignment1"/>
+		</Unit>
+		<Unit filename="/home/soldin/os192/Assignment1/defs.h">
+			<Option target="Assignment1"/>
+		</Unit>
+		<Unit filename="/home/soldin/os192/Assignment1/echo.c">
+			<Option target="Assignment1"/>
+		</Unit>
+		<Unit filename="/home/soldin/os192/Assignment1/elf.h">
+			<Option target="Assignment1"/>
+		</Unit>
+		<Unit filename="/home/soldin/os192/Assignment1/exec.c">
+			<Option target="Assignment1"/>
+		</Unit>
+		<Unit filename="/home/soldin/os192/Assignment1/fcntl.h">
+			<Option target="Assignment1"/>
+		</Unit>
+		<Unit filename="/home/soldin/os192/Assignment1/file.c">
+			<Option target="Assignment1"/>
+		</Unit>
+		<Unit filename="/home/soldin/os192/Assignment1/file.h">
+			<Option target="Assignment1"/>
+		</Unit>
+		<Unit filename="/home/soldin/os192/Assignment1/forktest.c">
+			<Option target="Assignment1"/>
+		</Unit>
+		<Unit filename="/home/soldin/os192/Assignment1/fs.c">
+			<Option target="Assignment1"/>
+		</Unit>
+		<Unit filename="/home/soldin/os192/Assignment1/fs.h">
+			<Option target="Assignment1"/>
+		</Unit>
+		<Unit filename="/home/soldin/os192/Assignment1/grep.c">
+			<Option target="Assignment1"/>
+		</Unit>
+		<Unit filename="/home/soldin/os192/Assignment1/ide.c">
+			<Option target="Assignment1"/>
+		</Unit>
+		<Unit filename="/home/soldin/os192/Assignment1/init.c">
+			<Option target="Assignment1"/>
+		</Unit>
+		<Unit filename="/home/soldin/os192/Assignment1/ioapic.c">
+			<Option target="Assignment1"/>
+		</Unit>
+		<Unit filename="/home/soldin/os192/Assignment1/kalloc.c">
+			<Option target="Assignment1"/>
+		</Unit>
+		<Unit filename="/home/soldin/os192/Assignment1/kbd.c">
+			<Option target="Assignment1"/>
+		</Unit>
+		<Unit filename="/home/soldin/os192/Assignment1/kbd.h">
+			<Option target="Assignment1"/>
+		</Unit>
+		<Unit filename="/home/soldin/os192/Assignment1/kill.c">
+			<Option target="Assignment1"/>
+		</Unit>
+		<Unit filename="/home/soldin/os192/Assignment1/lapic.c">
+			<Option target="Assignment1"/>
+		</Unit>
+		<Unit filename="/home/soldin/os192/Assignment1/ln.c">
+			<Option target="Assignment1"/>
+		</Unit>
+		<Unit filename="/home/soldin/os192/Assignment1/log.c">
+			<Option target="Assignment1"/>
+		</Unit>
+		<Unit filename="/home/soldin/os192/Assignment1/ls.c">
+			<Option target="Assignment1"/>
+		</Unit>
+		<Unit filename="/home/soldin/os192/Assignment1/main.c">
+			<Option target="Assignment1"/>
+		</Unit>
+		<Unit filename="/home/soldin/os192/Assignment1/memide.c">
+			<Option target="Assignment1"/>
+		</Unit>
+		<Unit filename="/home/soldin/os192/Assignment1/memlayout.h">
+			<Option target="Assignment1"/>
+		</Unit>
+		<Unit filename="/home/soldin/os192/Assignment1/mkdir.c">
+			<Option target="Assignment1"/>
+		</Unit>
+		<Unit filename="/home/soldin/os192/Assignment1/mkfs.c">
+			<Option target="Assignment1"/>
+		</Unit>
+		<Unit filename="/home/soldin/os192/Assignment1/mmu.h">
+			<Option target="Assignment1"/>
+		</Unit>
+		<Unit filename="/home/soldin/os192/Assignment1/mp.c">
+			<Option target="Assignment1"/>
+		</Unit>
+		<Unit filename="/home/soldin/os192/Assignment1/mp.h">
+			<Option target="Assignment1"/>
+		</Unit>
+		<Unit filename="/home/soldin/os192/Assignment1/param.h">
+			<Option target="Assignment1"/>
+		</Unit>
+		<Unit filename="/home/soldin/os192/Assignment1/picirq.c">
+			<Option target="Assignment1"/>
+		</Unit>
+		<Unit filename="/home/soldin/os192/Assignment1/pipe.c">
+			<Option target="Assignment1"/>
+		</Unit>
+		<Unit filename="/home/soldin/os192/Assignment1/policy.c">
+			<Option target="Assignment1"/>
+		</Unit>
+		<Unit filename="/home/soldin/os192/Assignment1/printf.c">
+			<Option target="Assignment1"/>
+		</Unit>
+		<Unit filename="/home/soldin/os192/Assignment1/proc.c">
+			<Option target="Assignment1"/>
+		</Unit>
+		<Unit filename="/home/soldin/os192/Assignment1/proc.h">
+			<Option target="Assignment1"/>
+		</Unit>
+		<Unit filename="/home/soldin/os192/Assignment1/rm.c">
+			<Option target="Assignment1"/>
+		</Unit>
+		<Unit filename="/home/soldin/os192/Assignment1/sanity.c">
+			<Option target="Assignment1"/>
+		</Unit>
+		<Unit filename="/home/soldin/os192/Assignment1/schedulinginterface.h">
+			<Option target="Assignment1"/>
+		</Unit>
+		<Unit filename="/home/soldin/os192/Assignment1/sh.c">
+			<Option target="Assignment1"/>
+		</Unit>
+		<Unit filename="/home/soldin/os192/Assignment1/sleeplock.c">
+			<Option target="Assignment1"/>
+		</Unit>
+		<Unit filename="/home/soldin/os192/Assignment1/sleeplock.h">
+			<Option target="Assignment1"/>
+		</Unit>
+		<Unit filename="/home/soldin/os192/Assignment1/spinlock.c">
+			<Option target="Assignment1"/>
+		</Unit>
+		<Unit filename="/home/soldin/os192/Assignment1/spinlock.h">
+			<Option target="Assignment1"/>
+		</Unit>
+		<Unit filename="/home/soldin/os192/Assignment1/stat.h">
+			<Option target="Assignment1"/>
+		</Unit>
+		<Unit filename="/home/soldin/os192/Assignment1/stressfs.c">
+			<Option target="Assignment1"/>
+		</Unit>
+		<Unit filename="/home/soldin/os192/Assignment1/string.c">
+			<Option target="Assignment1"/>
+		</Unit>
+		<Unit filename="/home/soldin/os192/Assignment1/syscall.c">
+			<Option target="Assignment1"/>
+		</Unit>
+		<Unit filename="/home/soldin/os192/Assignment1/syscall.h">
+			<Option target="Assignment1"/>
+		</Unit>
+		<Unit filename="/home/soldin/os192/Assignment1/sysfile.c">
+			<Option target="Assignment1"/>
+		</Unit>
+		<Unit filename="/home/soldin/os192/Assignment1/sysproc.c">
+			<Option target="Assignment1"/>
+		</Unit>
+		<Unit filename="/home/soldin/os192/Assignment1/test.c">
+			<Option target="Assignment1"/>
+		</Unit>
+		<Unit filename="/home/soldin/os192/Assignment1/trap.c">
+			<Option target="Assignment1"/>
+		</Unit>
+		<Unit filename="/home/soldin/os192/Assignment1/traps.h">
+			<Option target="Assignment1"/>
+		</Unit>
+		<Unit filename="/home/soldin/os192/Assignment1/types.h">
+			<Option target="Assignment1"/>
+		</Unit>
+		<Unit filename="/home/soldin/os192/Assignment1/uart.c">
+			<Option target="Assignment1"/>
+		</Unit>
+		<Unit filename="/home/soldin/os192/Assignment1/ulib.c">
+			<Option target="Assignment1"/>
+		</Unit>
+		<Unit filename="/home/soldin/os192/Assignment1/umalloc.c">
+			<Option target="Assignment1"/>
+		</Unit>
+		<Unit filename="/home/soldin/os192/Assignment1/user.h">
+			<Option target="Assignment1"/>
+		</Unit>
+		<Unit filename="/home/soldin/os192/Assignment1/vm.c">
+			<Option target="Assignment1"/>
+		</Unit>
+		<Unit filename="/home/soldin/os192/Assignment1/wc.c">
+			<Option target="Assignment1"/>
+		</Unit>
+		<Unit filename="/home/soldin/os192/Assignment1/x86.h">
+			<Option target="Assignment1"/>
+		</Unit>
+		<Unit filename="/home/soldin/os192/Assignment1/zombie.c">
+			<Option target="Assignment1"/>
+		</Unit>
+		<Unit filename="/home/soldin/os192/Assignment1/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>

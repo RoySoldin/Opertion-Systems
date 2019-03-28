@@ -36,6 +36,14 @@ struct context {
 
 enum procstate { UNUSED, EMBRYO, SLEEPING, RUNNABLE, RUNNING, ZOMBIE };
 
+struct perf {
+  int ctime;
+  int ttime;
+  int stime;
+  int retime;
+  int rutime;
+};
+
 // Per-process state
 struct proc {
   uint sz;                       // Size of process memory (bytes)
@@ -51,6 +59,19 @@ struct proc {
   struct file *ofile[NOFILE];    // Open files
   struct inode *cwd;             // Current directory  
   char name[16];                 // Process name (debugging)
+  int status;                    // Exit status of the proc
+  int detach_flag;               // Detach flag of the proc
+  long long accumulator;         // Priority accumulator
+  int priority;                  // Proc priority (0 to 10)
+  long long handle_time;         // Number of quantom passed in last time handle
+  int ctime;
+  int ttime;
+  int stime;
+  int retime;
+  int rutime;
+  int st_helper;
+  int re_helper;
+  int ru_helper;
 };
 
 // Process memory is laid out contiguously, low addresses first:

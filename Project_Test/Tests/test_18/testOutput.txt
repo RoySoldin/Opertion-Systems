@@ -1,0 +1,33 @@
+./Project_Test/XV6_Tests/schedulingTest13.c:27:13: error: array type has incomplete element type ‘struct perf’
+ struct perf childPerfs[NUM_OF_CHILDS];
+             ^~~~~~~~~~
+./Project_Test/XV6_Tests/schedulingTest13.c: In function ‘retrieveNextChildPerf’:
+./Project_Test/XV6_Tests/schedulingTest13.c:352:47: error: invalid use of undefined type ‘struct perf’
+         childPerfs[childNum].ctime = perf_temp.ctime;
+                                               ^
+./Project_Test/XV6_Tests/schedulingTest13.c:353:47: error: invalid use of undefined type ‘struct perf’
+         childPerfs[childNum].ttime = perf_temp.ttime;
+                                               ^
+./Project_Test/XV6_Tests/schedulingTest13.c:354:47: error: invalid use of undefined type ‘struct perf’
+         childPerfs[childNum].stime = perf_temp.stime;
+                                               ^
+./Project_Test/XV6_Tests/schedulingTest13.c:355:48: error: invalid use of undefined type ‘struct perf’
+         childPerfs[childNum].retime = perf_temp.retime;
+                                                ^
+./Project_Test/XV6_Tests/schedulingTest13.c:356:48: error: invalid use of undefined type ‘struct perf’
+         childPerfs[childNum].rutime = perf_temp.rutime;
+                                                ^
+./Project_Test/XV6_Tests/schedulingTest13.c: At top level:
+./Project_Test/XV6_Tests/schedulingTest13.c:374:29: error: parameter 1 (‘performance’) has incomplete type
+ void print_perf(struct perf performance){
+                             ^~~~~~~~~~~
+./Project_Test/XV6_Tests/schedulingTest13.c: In function ‘print_all_perfs’:
+./Project_Test/XV6_Tests/schedulingTest13.c:386:20: error: type of formal parameter 1 is incomplete
+         print_perf(childPerfs[i]);
+                    ^~~~~~~~~~
+./Project_Test/XV6_Tests/schedulingTest13.c: At top level:
+./Project_Test/XV6_Tests/schedulingTest13.c:29:13: error: storage size of ‘perf_temp’ isn’t known
+ struct perf perf_temp;
+             ^~~~~~~~~
+Project_Test/Tests/test_18/Makefile:309: recipe for target '_schedulingTest13' failed
+make[1]: *** [_schedulingTest13] Error 1

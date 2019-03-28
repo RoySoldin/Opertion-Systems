@@ -1,0 +1,11 @@
+nmeta 59 (boot, super, log blocks 30 inode blocks 26, bitmap blocks 1) blocks 941 total 1000
+balloc: first 694 blocks have been allocated
+balloc: write bitmap block at sector 58
+boot block is 456 bytes (max 510)
+proc.c: In function ‘wait’:
+proc.c:371:18: error: assignment makes pointer from integer without a cast [-Werror=int-conversion]
+           status = p->status;
+                  ^
+cc1: all warnings being treated as errors
+<builtin>: recipe for target 'proc.o' failed
+make[1]: *** [proc.o] Error 1

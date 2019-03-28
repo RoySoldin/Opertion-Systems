@@ -9,6 +9,7 @@ struct spinlock;
 struct sleeplock;
 struct stat;
 struct superblock;
+struct perf;
 
 // bio.c
 void            binit(void);
@@ -104,7 +105,7 @@ int             pipewrite(struct pipe*, char*, int);
 //PAGEBREAK: 16
 // proc.c
 int             cpuid(void);
-void            exit(void);
+void            exit(int status);
 int             fork(void);
 int             growproc(int);
 int             kill(int);
@@ -117,9 +118,17 @@ void            sched(void);
 void            setproc(struct proc*);
 void            sleep(void*, struct spinlock*);
 void            userinit(void);
-int             wait(void);
+int             wait(int* status);
 void            wakeup(void*);
 void            yield(void);
+// task 2.3
+int 			detach(int pid);
+// task 3.1
+void 			policy(int new_policy);
+// task 3.2
+void 			priority(int new_priotiry);
+// task 3.5
+int 			wait_stat(int* status, struct perf * preformance);
 
 // swtch.S
 void            swtch(struct context**, struct context*);

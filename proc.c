@@ -8,13 +8,20 @@
 #include "proc.h"
 #include "spinlock.h"
 
+#define LLONG_MAX 9223372036854775807
+
 extern PriorityQueue pq;
 extern RoundRobinQueue rrq;
 extern RunningProcessesHolder rpholder;
 
+// Global Variables:
+// add variable for policy
+int curr_policy = 1;
+long long quan_time = 1;
+
+
 long long getAccumulator(struct proc *p) {
-	//Implement this function, remove the panic line.
-	panic("getAccumulator: not implemented\n");
+	return p->accumulator;
 }
 
 struct {
@@ -158,7 +165,34 @@ userinit(void)
   // because the assignment might not be atomic.
   acquire(&ptable.lock);
 
+  // update stat info
+  //runnable time
+  // acquire(&tickslock);
+  // p->re_helper = ticks;
+  // release(&tickslock);
+
+
   p->state = RUNNABLE;
+  p->handle_time = quan_time;
+  p->accumulator = 0;
+  switch(curr_policy){
+    case 1:
+      p->priority = 1;
+      rrq.enqueue(p);
+      break;
+    case 2:
+      p->priority = 1;
+      pq.put(p);
+      break;
+    case 3:
+      p->priority = 0;
+      pq.put(p);
+      break;
+  }
+  // update stat info
+  // acquire(&tickslock);
+  // p -> ctime = ticks;
+  // release(&tickslock);
 
   release(&ptable.lock);
 }
@@ -224,7 +258,33 @@ fork(void)
 
   acquire(&ptable.lock);
 
+  // update stat info
+  // runnable time
+  // acquire(&tickslock);
+  // np->re_helper = ticks;
+  // release(&tickslock);
+
   np->state = RUNNABLE;
+  np->handle_time = quan_time;
+  np->priority = (np->parent)->priority;
+  np->accumulator = 0;
+  switch(curr_policy){
+    case 1:
+      rrq.enqueue(np);
+      break;
+    case 2:
+      pq.put(np);
+      break;
+    case 3:
+      pq.put(np);
+      break;
+  }
+
+
+  // update stat info
+  // acquire(&tickslock);
+  // np -> ctime = ticks;
+  // release(&tickslock);
 
   release(&ptable.lock);
 
@@ -235,14 +295,18 @@ fork(void)
 // An exited process remains in the zombie state
 // until its parent calls wait() to find out it exited.
 void
-exit(void)
+exit(int status)
 {
+  myproc()->status = status;
   struct proc *curproc = myproc();
   struct proc *p;
   int fd;
 
   if(curproc == initproc)
     panic("init exiting");
+
+  // Update proc exit status
+  
 
   // Close all open files.
   for(fd = 0; fd < NOFILE; fd++){
@@ -273,6 +337,12 @@ exit(void)
 
   // Jump into the scheduler, never to return.
   curproc->state = ZOMBIE;
+
+  // update stat info
+  // acquire(&tickslock);
+  // curproc -> ttime = ticks;
+  // release(&tickslock);
+
   sched();
   panic("zombie exit");
 }
@@ -280,7 +350,7 @@ exit(void)
 // Wait for a child process to exit and return its pid.
 // Return -1 if this process has no children.
 int
-wait(void)
+wait(int* status)
 {
   struct proc *p;
   int havekids, pid;
@@ -296,6 +366,10 @@ wait(void)
       havekids = 1;
       if(p->state == ZOMBIE){
         // Found one.
+
+        if (status != null)
+          *status = p->status;
+
         pid = p->pid;
         kfree(p->kstack);
         p->kstack = 0;
@@ -305,6 +379,8 @@ wait(void)
         p->name[0] = 0;
         p->killed = 0;
         p->state = UNUSED;
+        
+
         release(&ptable.lock);
         return pid;
       }
@@ -318,8 +394,66 @@ wait(void)
 
     // Wait for children to exit.  (See wakeup1 call in proc_exit.)
     sleep(curproc, &ptable.lock);  //DOC: wait-sleep
+
   }
 }
+
+int
+wait_stat(int * status, struct perf* performance)
+{
+  struct proc *p;
+  int havekids, pid;
+  struct proc *curproc = myproc();
+  
+  acquire(&ptable.lock);
+  for(;;){
+    // Scan through table looking for exited children.
+    havekids = 0;
+    for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
+      if(p->parent != curproc)
+        continue;
+      havekids = 1;
+      if(p->state == ZOMBIE){
+        // Found one.
+
+        // update perf with proc info
+        pid = p->pid;
+        if (status != null)
+          status = &(p->status);
+
+        performance->ctime = p->ctime;
+        performance->ttime = p->ttime;
+        performance->stime = p->stime;
+        performance->retime = p->retime;
+        performance->rutime = p->stime;
+        kfree(p->kstack);
+        p->kstack = 0;
+        freevm(p->pgdir);
+        p->pid = 0;
+        p->parent = 0;
+        p->name[0] = 0;
+        p->killed = 0;
+        p->state = UNUSED;
+        release(&ptable.lock);
+
+
+        return pid;
+      }
+    }
+
+    // No point waiting if we don't have any children.
+    if(!havekids || curproc->killed){
+      release(&ptable.lock);
+      return -1;
+    }
+
+    // Wait for children to exit.  (See wakeup1 call in proc_exit.)
+    sleep(curproc, &ptable.lock);  //DOC: wait-sleep
+
+  }
+}
+
+
 
 //PAGEBREAK: 42
 // Per-CPU process scheduler.
@@ -332,7 +466,7 @@ wait(void)
 void
 scheduler(void)
 {
-  struct proc *p;
+  struct proc *p = null;
   struct cpu *c = mycpu();
   c->proc = 0;
   
@@ -342,27 +476,112 @@ scheduler(void)
 
     // Loop over process table looking for process to run.
     acquire(&ptable.lock);
-    for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
-      if(p->state != RUNNABLE)
-        continue;
+    switch (curr_policy){
+      case 1:
+        if(!rrq.isEmpty()){
+          p = rrq.dequeue();  
+          rpholder.add(p);
+          c->proc = p;
+          switchuvm(p);
 
-      // Switch to chosen process.  It is the process's job
-      // to release ptable.lock and then reacquire it
-      // before jumping back to us.
-      c->proc = p;
-      switchuvm(p);
-      p->state = RUNNING;
+          // update stat info
+          // acquire(&tickslock);
+          p -> retime += ticks - p->re_helper;
+          p -> ru_helper = ticks;
+          // release(&tickslock);
 
-      swtch(&(c->scheduler), p->context);
-      switchkvm();
+          p->state = RUNNING;
+          swtch(&(c->scheduler), p->context);
+          switchkvm();
+          c->proc = 0;
+          rpholder.remove(p);
+          break;
+        }
+        else break;
+       case 2:
+        if(!pq.isEmpty()){
+          p = pq.extractMin();
+          rpholder.add(p);
+          c->proc = p;
+          switchuvm(p);
 
-      // Process is done running for now.
-      // It should have changed its p->state before coming back.
-      c->proc = 0;
+          // update stat info
+          // acquire(&tickslock);
+          p -> retime += ticks - p->re_helper;
+          p -> ru_helper = ticks;
+          // release(&tickslock);
+
+          p->state = RUNNING;
+          swtch(&(c->scheduler), p->context);
+          switchkvm();
+          c->proc = 0;
+          rpholder.remove(p);
+          break;
+        }
+        else break;
+      case 3:
+        if(quan_time % 100 == 0)  //  every 100 quan we are looking for the "oldest" runnable
+        {
+          struct proc *old_proc = null;
+          p = null;
+          long long min = LLONG_MAX;
+          for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
+              if(p->state == RUNNABLE && p->handle_time < min){
+                old_proc = p;
+                min = old_proc->handle_time;
+              }
+          }
+          if(old_proc)
+          {
+          	if(p){
+	          pq.extractProc(old_proc);
+	          rpholder.add(old_proc);
+	          c->proc = old_proc;
+	          switchuvm(old_proc);
+
+	          // update stat info
+	          // acquire(&tickslock);
+	          p -> retime += ticks - p->re_helper;
+	          p -> ru_helper = ticks;
+	          // release(&tickslock);
+
+	          p->state = RUNNING;
+	          swtch(&(c->scheduler), old_proc->context);
+	          switchkvm();
+	          c->proc = 0;
+	          rpholder.remove(old_proc);
+	          break;
+	      		}
+        	}
+     	}
+        else
+        {
+          if(!pq.isEmpty()){
+            p = pq.extractMin();
+            rpholder.add(p);
+            c->proc = p;
+
+            switchuvm(p);
+
+
+            // update stat info
+            // acquire(&tickslock);
+            p -> retime += ticks - p->re_helper;
+            p -> ru_helper = ticks;
+            // release(&tickslock);
+
+            p->state = RUNNING;
+            swtch(&(c->scheduler), p->context);
+            switchkvm();
+            rpholder.remove(p);
+            c->proc = 0;
+            break;
+          }
+        }        
+
     }
-    release(&ptable.lock);
-
-  }
+    release(&ptable.lock);  
+  } 
 }
 
 // Enter scheduler.  Must hold only ptable.lock
@@ -396,9 +615,36 @@ void
 yield(void)
 {
   acquire(&ptable.lock);  //DOC: yieldlock
+
+  // update stat info
+  // acquire(&tickslock);
+  // runnable time
+  myproc()->re_helper = ticks;
+  // running time
+  myproc()->rutime += ticks - myproc()->ru_helper;
+  // release(&tickslock);
+
   myproc()->state = RUNNABLE;
+  quan_time++;
+  switch(curr_policy){
+    case 1:
+      rrq.enqueue(myproc());
+      break;
+    case 2:
+      myproc()->accumulator += myproc()->priority;
+      pq.put(myproc());
+      break;
+    case 3:
+      myproc()->accumulator += myproc()->priority;
+      myproc()->handle_time = quan_time;
+      pq.put(myproc());
+      break;
+    }
+
   sched();
   release(&ptable.lock);
+  // fix-trap
+  // exit(0);
 }
 
 // A fork child's very first scheduling by scheduler()
@@ -418,7 +664,8 @@ forkret(void)
     iinit(ROOTDEV);
     initlog(ROOTDEV);
   }
-
+  // fix-trap
+    // exit(0);
   // Return to "caller", actually trapret (see allocproc).
 }
 
@@ -449,6 +696,13 @@ sleep(void *chan, struct spinlock *lk)
   p->chan = chan;
   p->state = SLEEPING;
 
+  // update stat info
+  // sleeping time
+  // acquire(&tickslock);
+  // p -> st_helper = ticks;
+  // myproc()->rutime += ticks - myproc()->ru_helper;
+  // release(&tickslock);
+
   sched();
 
   // Tidy up.
@@ -459,6 +713,8 @@ sleep(void *chan, struct spinlock *lk)
     release(&ptable.lock);
     acquire(lk);
   }
+  // fix-trap
+  // exit(0);
 }
 
 //PAGEBREAK!
@@ -470,8 +726,33 @@ wakeup1(void *chan)
   struct proc *p;
 
   for(p = ptable.proc; p < &ptable.proc[NPROC]; p++)
-    if(p->state == SLEEPING && p->chan == chan)
-      p->state = RUNNABLE;
+    if(p->state == SLEEPING && p->chan == chan){
+        // update stat info
+        // acquire(&tickslock);
+        // sleeping time
+        // p -> stime += ticks - p->st_helper;
+        // runnable time
+        // p->re_helper = ticks;
+        // release(&tickslock);  
+
+        p->state = RUNNABLE;
+        p->handle_time = quan_time;
+        switch(curr_policy){
+        case 1:
+          rrq.enqueue(p);
+          break;
+        case 2:
+          pq.put(p);
+          break;
+        case 3:
+          pq.put(p);
+          break;
+      		}
+      
+	   
+	}
+    // fix-trap
+    // exit(0);
 }
 
 // Wake up all processes sleeping on chan.
@@ -481,6 +762,8 @@ wakeup(void *chan)
   acquire(&ptable.lock);
   wakeup1(chan);
   release(&ptable.lock);
+  // fix-trap
+  // exit(0);
 }
 
 // Kill the process with the given pid.
@@ -495,11 +778,33 @@ kill(int pid)
   for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
     if(p->pid == pid){
       p->killed = 1;
+      p->handle_time = quan_time;
       // Wake process from sleep if necessary.
-      if(p->state == SLEEPING)
+      if(p->state == SLEEPING){
+      // update stat info
+        // acquire(&tickslock);
+        //sleep time
+        p -> stime += ticks - p->st_helper;
+        //runnable time
+        p->re_helper = ticks;
+        // release(&tickslock);
+
         p->state = RUNNABLE;
-      release(&ptable.lock);
-      return 0;
+        switch(curr_policy){
+          case 1:
+            rrq.enqueue(p);
+            release(&ptable.lock);
+            return 0;
+          case 2:
+            pq.put(p);
+            release(&ptable.lock);
+            return 0;
+          case 3:
+            pq.put(p);
+            release(&ptable.lock);
+            return 0;
+          }
+      }
     }
   }
   release(&ptable.lock);
@@ -541,4 +846,135 @@ procdump(void)
     }
     cprintf("\n");
   }
+  // fix-trap
+  // exit(0);
 }
+//#####################################################################################################
+
+//                                        task 2.3
+
+//        transfer a child process with the given pid from the parent to the init process
+
+//#####################################################################################################
+
+int
+detach(int pid)
+{
+  struct proc *curproc = myproc();
+  struct proc *p;
+  
+
+  if(curproc == initproc)
+    panic("init detaching");
+
+  acquire(&ptable.lock);
+
+  // Pass abandoned children to init.
+  for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
+    if(p->pid == pid && p->parent == curproc){
+      p->parent = initproc;
+      // update flag to print "zombie" when proccess is finished
+      p->detach_flag = 1;
+      release(&ptable.lock);
+      return 0;
+    }
+  }
+  release(&ptable.lock);
+  return -1;
+}
+
+//#####################################################################################################
+
+//                                        task 3.1
+
+//                    change scheduling policy with new system call
+
+//#####################################################################################################
+
+void
+policy(int new_policy)
+{
+    
+    // case 2 - change 2 ---> 3
+    if(new_policy == 2 && curr_policy == 3){
+    	acquire(&ptable.lock);
+    	curr_policy = new_policy;
+    	release(&ptable.lock);
+    	return;
+    }
+
+    if(new_policy == 3 && curr_policy == 2){
+    	acquire(&ptable.lock);
+    	curr_policy = new_policy;
+    	release(&ptable.lock);
+    	return;
+    }
+    // case 3 - change 2 ---> 1 
+    if(new_policy == 1 && curr_policy == 2) 
+    {
+	  acquire(&ptable.lock);  	
+      curr_policy = new_policy;
+      if(!pq.switchToRoundRobinPolicy())
+         panic("Policy fail : 2->1");
+     release(&ptable.lock);
+     return;
+    }
+    // case 5 - change 1 ---> 3 // case 1 - change 1 ---> 2
+    if(curr_policy == 1 && (new_policy == 2 || new_policy == 3))
+    {
+      acquire(&ptable.lock);	
+      curr_policy = new_policy;
+      if(!rrq.switchToPriorityQueuePolicy())
+          panic("Policy fail : 1->3|2");
+      release(&ptable.lock);
+      return;
+    }
+    // case 4 - change 3 ---> 2 // case 6 - change 3 ---> 1   
+    if(curr_policy == 3 && (new_policy == 2 || new_policy == 1))
+    {
+      acquire(&ptable.lock);
+	
+      struct proc* p;
+      curr_policy = new_policy;
+      if(new_policy == 1){
+        // acquire(&ptable.lock);
+        for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
+            p->accumulator = 0;
+            if(p->priority == 0)
+              p->priority = 1;
+        }
+      release(&ptable.lock);
+      
+      if(!pq.switchToRoundRobinPolicy())
+        panic("Policy fail : 3->1|2");
+    }
+    else{
+      acquire(&ptable.lock);	
+      curr_policy = new_policy;
+      release(&ptable.lock);
+    }
+  }
+  // release(&ptable.lock);
+
+  // fix-trap
+  // exit(0);
+}
+
+void
+priority(int new_priority)
+{
+	if(new_priority < 0 || new_priority > 3)
+		return;
+	if(new_priority != 0)
+		myproc()->priority = new_priority;
+	else
+		if(curr_policy == 3)
+			myproc()->priority = new_priority;
+    return;
+}
+
+
+
+
+
+
